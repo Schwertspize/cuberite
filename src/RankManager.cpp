@@ -2249,7 +2249,7 @@ void cRankManager::CreateDefaults(void)
 
 	// Add permissions to groups:
 	AddPermissionToGroup("core.build", "Default");
-	AddPermissionToGroup("core.tp",    "Teleport");
+	AddPermissionToGroup("core.teleport",    "Teleport");
 	AddPermissionToGroup("core.kick",  "Kick");
 	AddPermissionToGroup("*",          "Everything");
 
