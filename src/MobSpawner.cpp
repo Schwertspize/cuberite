@@ -236,6 +236,32 @@ bool cMobSpawner::CanSpawnHere(cChunk * a_Chunk, int a_RelX, int a_RelY, int a_R
 				}
 				return CanSpawn && HasFloor && (SkyLight <= 7) && (BlockLight <= 7);
 			}
+
+			case mtCaveSpider:
+			{
+				bool CanSpawn = true;
+				bool HasFloor = false;
+				for (int x = 0; x < 1; ++x)
+				{
+					for (int z = 0; z < 1; ++z)
+					{
+						CanSpawn = a_Chunk->UnboundedRelGetBlockType(a_RelX + x, a_RelY, a_RelZ + z, TargetBlock);
+						CanSpawn = CanSpawn && (TargetBlock == E_BLOCK_AIR);
+						if (!CanSpawn)
+						{
+							return false;
+						}
+						HasFloor = (
+							HasFloor ||
+							(
+								a_Chunk->UnboundedRelGetBlockType(a_RelX + x, a_RelY - 1, a_RelZ + z, TargetBlock) &&
+								!cBlockInfo::IsTransparent(TargetBlock)
+							)
+						);
+					}
+				}
+				return CanSpawn && HasFloor && (SkyLight <= 7) && (BlockLight <= 7);
+			}
 			
 			case mtCreeper:
 			case mtSkeleton:
